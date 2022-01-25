@@ -1,0 +1,5 @@
+sceneSetups:
+- path: Assets/UrpLearn/GrassGPUInstances/Scene/GrassGPUInstanceScene.unity
+  isLoaded: 1
+  isActive: 1
+  isSubScene: 0
