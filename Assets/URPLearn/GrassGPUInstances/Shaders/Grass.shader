@@ -24,15 +24,35 @@ Shader "URP_GPU_Instance/Grass"
         
             HLSLPROGRAM
 
-            #pragma vertex vert
-            #pragma fragment frag
-            // make fog work
-            #pragma multi_compile_fog
+            
+            //#include "UnityCG.cginc"
+            #pragma prefer_hlslcc gles
+            #pragma exclude_renderers d3d11_9x
+            #pragma target 2.0
+
+            // #include "UnityCG.cginc"
+            #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Common.hlsl"
+            #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Filtering.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Input.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+
+            // -------------------------------------
+            // Material Keywords
+            #pragma shader_feature _RECEIVE_SHADOWS_OFF
+
+            // -------------------------------------
+            // Universal Pipeline keywords
+            #pragma multi_compile _ _MAIN_LIGHT_SHADOWS
+            #pragma multi_compile _ _MAIN_LIGHT_SHADOWS_CASCADE
+
             //--------------------------------------
             // GPU Instancing
             #pragma multi_compile_instancing
             #pragma instancing_options procedural:setup
-            #include "UnityCG.cginc"
+
+
+            
 
             #ifdef UNITY_PROCEDURAL_INSTANCING_ENABLED
                 struct GrassInfo {
@@ -57,6 +77,12 @@ Shader "URP_GPU_Instance/Grass"
                 float4 vertex : SV_POSITION;
             };
 
+
+            #pragma vertex vert
+            #pragma fragment frag
+
+
+           
             sampler2D _MainTex;
             float4 _MainTex_ST;
 
